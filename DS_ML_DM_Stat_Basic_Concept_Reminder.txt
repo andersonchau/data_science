@@ -1,0 +1,80 @@
+Stat/DS/ML/DM Terms/Concept reminder.
+ 
+( For my own reminder purpose after studying Stat/DS/ML/DM topics as a support for further studies
+, readers are encourage to first study stat/DS/ML/DM text/papers/stackoverflow/stackexchange on their own because the
+following information may not be accurate and not self-contained.   ) 
+
+ML/DM difference :
+-- use same technique ( SVM, LR, Logistic R ... )
+ML - we program something (predict a model for future preduction) using data
+DM - we use data to build model to create knowledge ( knowledge discovery)
+
+RV
+A numerical variable, having it values comes in an associated probability.
+
+Independent, Identically distributed(iid):
+Independent --  different samples have no correlations , formal P(x and y) = P(x)*P(y)
+Identically distributed -- have the same distribution 
+
+Central Limit Theorem (proof omitted): 
+When sample size is large enough, the sample means will comes in Normal distribution with (Population of any distribution)
+sample mean = population mean 
+and sample SD = PSD/sqrt(n)
+
+Pearson coefficient :
+-- -1 to 1, 1 large LINEAR relationship between 2 RV, 0 independent.
+-- but easily affected by outliers. 
+
+
+PCA : 
+-- problem : too many features , we want to combine some features into one by linear combination
+-- But we still want to maximize the variance of new feature,so that the one component still collects the most "uniqueness" from the data set.
+( to minimize the reconstruction error ) 
+-- in his case transformed vectors will lose the min. consistuent elements characteristics (compressed lesser other-dimension ) 
+-- it is found by finding the project of "principle axis" of the data in features 
+and features are projected into this axis to form the new feature. 
+-- it can be proved that max var. is equivalent to finding max. eigenvalue and it associated eigenvector ( principal axis ). 
+
+Greedy Algorithm : 
+
+
+Decision Tree: 
+
+Shannon Entropy ( for decision tree ) :
+
+Gini Index :
+
+
+
+
+Hypothesis Testing (t-test,z-test,sign-test) :
+
+p-value :
+The probability that the sample gives such a (or more extreme) result, given the condition that Ho is true. 
+It is tested against significant level for Hypothesis testing 
+
+Chi square test (Goodness of fit) 
+full example : https://stattrek.com/chi-square-test/goodness-of-fit.aspx
+Given categorical variable , it is used in Hypothesis test whether the sample data consistent(H0) with a specified distribution or not (Ha)
+e.g. Merchant claimed that the draw have 10% gold, 20% silver, 70% bronze coin , we have 2% gold, 8 % silver, 92% bronze coin in sample 
+ 
+ 
+
+Chi square test (Independence ) :
+full example : https://stattrek.com/chi-square-test/independence.aspx
+-- applicable to X2 test apply to categorical variable, each sample size happens at least n>=5, sample is simple random sampleing 
+-- case similar to GoF test, just to check whether 2 distribution are depenent or not. 
+
+ANOVA :
+One-way Test : whether in a group of distribution , whether means are different by examining the variance.
+ref : https://online.stat.psu.edu/stat500/lesson/10/10.1
+
+Association Rule Mining , basket analysis : 
+
+Maximum Likelihood : 
+
+Bias/Variance Analysis :
+
+Unbias Estimator :
+
+Linear Discriminant Analysis :
