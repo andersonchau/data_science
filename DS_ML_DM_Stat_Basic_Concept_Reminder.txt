@@ -78,7 +78,6 @@ Short -> not player , Tall -> next
 Tall+Thin -> not player , Tall+muscular -> player 
 M/F too low IG , not considered
 
- 
 ============================================================================================================================
 
 Gini impurity (CART) , similar to Entropy 
@@ -107,7 +106,6 @@ full example : https://stattrek.com/chi-square-test/independence.aspx
 -- applicable to X2 test apply to categorical variable, each sample size happens at least n>=5, sample is simple random sampleing 
 -- case similar to GoF test, just to check whether 2 distribution are depenent or not. 
 
-ANOVA :
 One-way Test : whether in a group of distribution , whether means are different by examining the variance.
 ref : https://online.stat.psu.edu/stat500/lesson/10/10.1
 
@@ -127,3 +125,21 @@ Bias/Variance Analysis :
 Unbias Estimator :
 ==========================================================================================================================
 Linear Discriminant Analysis :
+==========================================================================================================================
+Generative vs Discrminative Learning Model for classification  (ref. CS229 notes )
+D - example : Logistic Regression.
+G - example : Naive Bayes Classifier 
+suppose 2 classes y1, y2 cases, x be features
+Discriminative : to have p(y|x) to see p(y1|x) or p(y2|x) is greater for hypothesis. 
+Generative : Approach to find p(y|x), instead of finding p(y|x) directly , 
+model p(x|y) (given known classes, observe the distribution of its features) ,then use  p(x|y)p(y)/p(x) to find p(y|x)
+p(x) can be omitted because argmax y p(y|x) = argmax y p(x|y)p(y) = argmax y (p(x AND y))
+which means : In the modeling process , if want to find max. p(y|x) (i.e. remember we estimate to get theta by maximizing P(theta|x) in MLE )
+it is the same as finding max value of (p(x AND y)) during our observation.
+
+
+p(y|x) means given features, the distribution of p(y) which is h(x)
+p(x|y) found by we have samples which is classified , we observe their features. 
+y = elephant ,man, x = height 
+
+ 
