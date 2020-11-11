@@ -2,29 +2,30 @@ Stat/DS/ML/DM Terms/Concept reminder.
  
 ( For my own reminder purpose after studying Stat/DS/ML/DM topics as a support for further studies
 , readers are encourage to first study stat/DS/ML/DM text/papers/stackoverflow/stackexchange on their own because the
-following information may not be accurate and not self-contained.   ) 
-
+following information may not be accurate and not self-contained. )
+** I also do not guarantee the below is correct **  
+==========================================================================================================================
 ML/DM difference :
 -- use same technique ( SVM, LR, Logistic R ... )
 ML - we program something (predict a model for future preduction) using data
 DM - we use data to build model to create knowledge ( knowledge discovery)
-
-RV
+==========================================================================================================================
+RV :
 A numerical variable, having it values comes in an associated probability.
-
+==========================================================================================================================
 Independent, Identically distributed(iid):
 Independent --  different samples have no correlations , formal P(x and y) = P(x)*P(y)
 Identically distributed -- have the same distribution 
-
+==========================================================================================================================
 Central Limit Theorem (proof omitted): 
 When sample size is large enough, the sample means will comes in Normal distribution with (Population of any distribution)
 sample mean = population mean 
 and sample SD = PSD/sqrt(n)
-
+==========================================================================================================================
 Pearson coefficient :
 -- -1 to 1, 1 large LINEAR relationship between 2 RV, 0 independent.
 -- but easily affected by outliers. 
-
+==========================================================================================================================
 
 PCA : 
 -- problem : too many features , we want to combine some features into one by linear combination
@@ -35,17 +36,56 @@ PCA :
 and features are projected into this axis to form the new feature. 
 -- it can be proved that max var. is equivalent to finding max. eigenvalue and it associated eigenvector ( principal axis ). 
 
+==========================================================================================================================
 Greedy Algorithm : 
+-- We have no algo to find an optimal solution, brute force is too costly. 
+-- We define an objective(largest reduction in entropy, which we conform to and and make the best of it. 
+-- Greedy Algorithm generally not finding optimal solution, but based on the objective
+Dynamic programming is used with Greedy Algorithm to break down bigger problem into smaller problem and fix it. 
+
+==========================================================================================================================
+
+Shannon Entropy Concept ( for decision tree ID3、C4.5、C5.0) :
+
+How Entropy formula relates to certainty. 
+-- Surpurise ( events of low probability ), 
+(1) Measure the EXPECTED average min. amount of information (number of bits) used to store a distribution of event, 
+to save bits, we generally use smaller number of bits to indicate higher change event (e.g. 01 ) and larger number 
+of bits to denote smaller chance event (e.g. 00100101 ). This can be calculated by Shannon Entropy formula. 
+(2) evenly distributed events(10*10%) (no surprise/uncertain) generally has highest entropy 
+( we cannot do optimization to assign higher number of bits to lesser chance events ), more certain cases(80%,10%,10%..) use lesser 
+bytes. 
+=> Entropy formula measure the uncertainty of event distribution. => higher entropy, higher uncertainty 
+
+How certainty relates to Decision Tree.
+IG (Information Gain) => amount reduction in entropy => amount of uncertainty removed.
+With this splitting, we are in a more certain position make decision.
 
 
-Decision Tree: 
+Decision tree is the greedy algorithm aiming to minimize the largest entropy (greatest information gain) first. 
+=> DT is to do splitting on the feature which provides highest promotion of certainty. 
+e.g. P(C_1|A_1) = 0.4/P(C_2|A_1) = 0.6/P(C_1|A_2) = 0.4/P(C_2|A_2) = 0.6 
+<-- less certain , even after answering this question, we do not gain much information. 
 
-Shannon Entropy ( for decision tree ) :
+P(C_1|B_1) = 0.01,P(C_2|B_1) = 0.99,P(C_1|B_2) = 0.99,P(C_2|B_2) = 0.01 
+=> We will choose Splitting on B instead of A first, and we probably will discard the splitting on A. 
 
-Gini Index :
+e.g. features, M/F , Tall/Short, muscular/thin => play basketball 
+M/F less IG , T/S highest IG, M/T middle IG
+(same percentage of M/F player basketball,  short people generally wont play  )
+Tree may be 
+Short -> not player , Tall -> next 
+Tall+Thin -> not player , Tall+muscular -> player 
+M/F too low IG , not considered
 
+ 
+============================================================================================================================
 
-
+Gini impurity (CART) , similar to Entropy 
+This is the probably of a class of object randomly put into the distribution, what is the probability of misclassification 
+higher => more uncertain
+in this case : 1-p1^2 - p2^2 ......  , 
+==========================================================================================================================
 
 Hypothesis Testing (t-test,z-test,sign-test) :
 
@@ -53,12 +93,14 @@ p-value :
 The probability that the sample gives such a (or more extreme) result, given the condition that Ho is true. 
 It is tested against significant level for Hypothesis testing 
 
+==========================================================================================================================
+
 Chi square test (Goodness of fit) 
 full example : https://stattrek.com/chi-square-test/goodness-of-fit.aspx
 Given categorical variable , it is used in Hypothesis test whether the sample data consistent(H0) with a specified distribution or not (Ha)
 e.g. Merchant claimed that the draw have 10% gold, 20% silver, 70% bronze coin , we have 2% gold, 8 % silver, 92% bronze coin in sample 
  
- 
+ ==========================================================================================================================
 
 Chi square test (Independence ) :
 full example : https://stattrek.com/chi-square-test/independence.aspx
@@ -69,12 +111,19 @@ ANOVA :
 One-way Test : whether in a group of distribution , whether means are different by examining the variance.
 ref : https://online.stat.psu.edu/stat500/lesson/10/10.1
 
+==========================================================================================================================
 Association Rule Mining , basket analysis : 
-
-Maximum Likelihood : 
-
+confidence  :
+lift :
+support :  
+==========================================================================================================================
+Maximum Likelihood Estimation (MLE):
+When we have a set of sample data, we want to find the best parameter of a model (e.g. mean, standard deviation ) which is best fit to this 
+observation ( sampled data). best chance (max. likehood) that fit this model.
+==========================================================================================================================
 Bias/Variance Analysis :
 
+==========================================================================================================================
 Unbias Estimator :
-
+==========================================================================================================================
 Linear Discriminant Analysis :
