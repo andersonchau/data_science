@@ -1,4 +1,8 @@
-Stat/DS/ML/DM Terms/Concept reminder.
+Ref : 
+Statistical Method for Machine Learning -- Jason Brownlee
+
+
+Stat/DS/ML/DM Terms/Concept glossory for reminder.
  
 ( For my own reminder purpose after studying Stat/DS/ML/DM topics as a support for further studies
 , readers are encourage to first study stat/DS/ML/DM text/papers/stackoverflow/stackexchange on their own because the
@@ -10,6 +14,15 @@ ML/DM difference :
 ML - we program something (predict a model for future preduction) using data
 DM - we use data to build model to create knowledge ( knowledge discovery)
 ==========================================================================================================================
+==========================================================================================================================
+Statistics -- how to collect data, interpret data, reach conclusion about data. 
+Descriptive Stat -- mean/var/skewness to discribe data, visualization 
+Inferential Stat -- estimation , hypothesis testing
+ML(Predictive modeling) vs Stat(Stat learning) -- use algo to model data vs studies of maths of model and goodness of fit.
+Exploratory data analysis -- summarization and visualization of data. 
+Data Mining -- finding patterns/relationship in data.
+
+
 RV :
 A numerical variable, having it values comes in an associated probability.
 ==========================================================================================================================
@@ -27,6 +40,20 @@ Pearson coefficient :
 -- but easily affected by outliers. 
 ==========================================================================================================================
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================================================================================================================
 PCA : 
 -- problem : too many features , we want to combine some features into one by linear combination
 -- But we still want to maximize the variance of new feature,so that the one component still collects the most "uniqueness" from the data set.
@@ -62,7 +89,7 @@ IG (Information Gain) => amount reduction in entropy => amount of uncertainty re
 With this splitting, we are in a more certain position make decision.
 
 
-Decision tree is the greedy algorithm aiming to minimize the largest entropy (greatest information gain) first. 
+Some Decision tree are the greedy algorithm aiming to minimize the largest entropy (greatest information gain) first. 
 => DT is to do splitting on the feature which provides highest promotion of certainty. 
 e.g. P(C_1|A_1) = 0.4/P(C_2|A_1) = 0.6/P(C_1|A_2) = 0.4/P(C_2|A_2) = 0.6 
 <-- less certain , even after answering this question, we do not gain much information. 
@@ -80,18 +107,49 @@ M/F too low IG , not considered
 
 ============================================================================================================================
 
-Gini impurity (CART) , similar to Entropy 
+Gini impurity (CART) , usage : similar to Entropy 
 This is the probably of a class of object randomly put into the distribution, what is the probability of misclassification 
 higher => more uncertain
 in this case : 1-p1^2 - p2^2 ......  , 
 ==========================================================================================================================
+https://www.jmp.com/en_hk/statistics-knowledge-portal/t-test/two-sample-t-test.html
 
-Hypothesis Testing (t-test,z-test,sign-test) :
+Hypothesis Testing (with t-test,z-test,sign-test) :
+
+H0(Null Hypothesis) - Assumption failed to be rejected
+H1(Alternative Hypothesis) - Assumption rejected at some level significance 
 
 p-value :
-The probability that the sample gives such a (or more extreme) result, given the condition that Ho is true. 
-It is tested against significant level for Hypothesis testing 
+The probability that the sample gives such a (or more extreme) result, given the condition that H0 is true. 
+It is tested against significant level (e.g. 95%/99% ) for Hypothesis testing 
+p-value obtained by sample is used to compare against a critical value of a sig. level for H-Test
+p-value<critical value => not sig. result , failed to reject H0
+p-value>critical value => sig. result , reject H0
+e.g. sample = 100 , mean = 25 min , p-value = P(mean > 25 min | H0 true )
 
+Assume Sig. level = 95%
+Type I Error : Incorrect rejection of a true H0, false positive 
+Type II Error : H1 is in fact true but we failed to reject H0, false negative
+
+
+T-test : ( sample size < 30 , or (unknown population var AND sample size large) or known normal distribution )
+1-sample-test : test whether mean of single population = target value ( is mean this sample of this population = 30) 
+
+2-sample-test : test whether means of 2 population are different ( does mean of height of female diff from mean of height of male )
+Paired T : Test whether difference between 2 dependent = target value ( does mean of weight diff after taking weight loss pill )
+
+python : ttest_rel(data1, data2) // from scipy.stats import ttest_rel
+
+Z-test( assumed normal distribution , used when known population variance or sample size >= 30 )
+1-sample-test: test whether sample mean =/= population mean 
+2-sample-test: test wether means of 2 samples are different.
+
+t-test use sample SD , z-test used population SD
+
+ANOVA
+one-way : H0: all sample independent distribution are equals , H1: one or more sample mean(s) is/are not equal
+python : stat, p = f_oneway(data1, data2, data3) // from scipy.stats import f_oneway
+Repeated Measures ANOVA Test : H0: aAll paired sample distributions are equal , H1: One or more paired sample distributions are not equal.
 ==========================================================================================================================
 
 Chi square test (Goodness of fit) 
@@ -130,7 +188,7 @@ Generative vs Discrminative Learning Model for classification  (ref. CS229 notes
 D - example : Logistic Regression.
 G - example : Naive Bayes Classifier 
 suppose 2 classes y1, y2 cases, x be features
-Discriminative : to have p(y|x) to see p(y1|x) or p(y2|x) is greater for hypothesis. 
+Discriminative : to classify y based on x <=> to see p(y1|x) or p(y2|x) is greater for hypothesis. 
 Generative : Approach to find p(y|x), instead of finding p(y|x) directly , 
 model p(x|y) (given known classes, observe the distribution of its features) ,then use  p(x|y)p(y)/p(x) to find p(y|x)
 p(x) can be omitted because argmax y p(y|x) = argmax y p(x|y)p(y) = argmax y (p(x AND y))
