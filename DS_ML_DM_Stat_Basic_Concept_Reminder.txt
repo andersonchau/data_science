@@ -184,20 +184,50 @@ Unbias Estimator :
 ==========================================================================================================================
 Linear Discriminant Analysis :
 ==========================================================================================================================
-Generative vs Discrminative Learning Model for classification  (ref. CS229 notes )
+Generative vs Discrminative Learning Model for classification  
 D - example : Logistic Regression.
-G - example : Naive Bayes Classifier 
+G - example : Naive Bayes Classifier , Gaussian Discriminant Analysis
 suppose 2 classes y1, y2 cases, x be features
 Discriminative : to classify y based on x <=> to see p(y1|x) or p(y2|x) is greater for hypothesis. 
 Generative : Approach to find p(y|x), instead of finding p(y|x) directly , 
-model p(x|y) (given known classes, observe the distribution of its features) ,then use  p(x|y)p(y)/p(x) to find p(y|x)
+model p(x|y) and p(y) (or p(x,y)) (given known classes, observe the distribution of its features) ,then use  p(x|y)p(y)/p(x) to find p(y|x)
 p(x) can be omitted because argmax y p(y|x) = argmax y p(x|y)p(y) = argmax y (p(x AND y))
 which means : In the modeling process , if want to find max. p(y|x) (i.e. remember we estimate to get theta by maximizing P(theta|x) in MLE )
 it is the same as finding max value of (p(x AND y)) during our observation.
-
 
 p(y|x) means given features, the distribution of p(y) which is h(x)
 p(x|y) found by we have samples which is classified , we observe their features. 
 y = elephant ,man, x = height 
 
- 
+What does "argmax y p(y|x) = argmax y p(x|y)p(y)" means ? 
+e.g. 
+for case where y = {0,1}  		
+we find p(x|y=1)p(y=1) > p(x|y=0)p(y=0), then argmax y....  is 1 , 
+same as when given x, we classify y = 1 because p(y=1|x) > p(y=0|x) { finding argmax y p(y|x)}
+
+Assume we have a new case to classify 
+we consider p(x1, . . . , x50000|y) ( some x's one , some x's zero ) 
+= p(x1|y)p(x2|y, x1)p(x3|y, x1, x2)· · · p(x50000|y, x1, . . . , x49999) (by Bayes rule)
+= p(x1|y)p(x2|y)p(x3|y)· · · p(x50000|y) (by Naive Bayes assumption)
+=> classified y = argmax y p(y) p(xi|y)..... p(xn|y)
+
+
+============================================================================================================================
+Bayesian Statistics 
+Bayesian Theorem : p(x,y) = p(y|x)p(x) = p(x|y)p(y)
+Bayesian Learning : 
+p(Theta | Data ) {Posterier}
+= p(Data | Theta ){likelihood} * p(Theta) {prior} /p(Data) {Normalization}
+A view : 
+Prior : initial guess
+Likelihood : given initial guess, we have this sample data
+Then final estimation = Posterier = prior + likelihood update 
+============================================================================================================================
+Maximum likelihood estimation(MLE), maximimize the L(theta) = p(Data|Theta) ?
+
+Interpreting Likelihood function : 
+L(theta) is defined as p(X|theta), the distribution of x given the variation of parameters 
+x is multivariate , and x1,... xn are independent, we have L(Theta) = p(x1|theta)*p(x2|theta).... p(xn|theata) , if every increasing, can apply
+log likelihood.
+We target to find theta that make the observed sample most likely (this theta is most probable for the observed data), i.e. to maximize p(Data|Theta)
+
