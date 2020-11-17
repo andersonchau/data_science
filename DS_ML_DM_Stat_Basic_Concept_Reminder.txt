@@ -1,20 +1,16 @@
-Ref : 
-Statistical Method for Machine Learning -- Jason Brownlee
+Learning Notes for reminder and concept intuition
 
 
-Stat/DS/ML/DM Terms/Concept glossory for reminder.
- 
-( For my own reminder purpose after studying Stat/DS/ML/DM topics as a support for further studies
-, readers are encourage to first study stat/DS/ML/DM text/papers/stackoverflow/stackexchange on their own because the
-following information may not be accurate and not self-contained. )
-** I also do not guarantee the below is correct **  
+=====================================================================================================================================
+
+
 ==========================================================================================================================
 ML/DM difference :
 -- use same technique ( SVM, LR, Logistic R ... )
 ML - we program something (predict a model for future preduction) using data
 DM - we use data to build model to create knowledge ( knowledge discovery)
 ==========================================================================================================================
-==========================================================================================================================
+========================================================================================================================
 Statistics -- how to collect data, interpret data, reach conclusion about data. 
 Descriptive Stat -- mean/var/skewness to discribe data, visualization 
 Inferential Stat -- estimation , hypothesis testing
@@ -22,7 +18,9 @@ ML(Predictive modeling) vs Stat(Stat learning) -- use algo to model data vs stud
 Exploratory data analysis -- summarization and visualization of data. 
 Data Mining -- finding patterns/relationship in data.
 
-
+Error :
+Generalization error: errors rate that a model worked on unseen data. i.e. test error
+Standard error : Standard error of mean, 
 RV :
 A numerical variable, having it values comes in an associated probability.
 ==========================================================================================================================
@@ -39,21 +37,6 @@ Pearson coefficient :
 -- -1 to 1, 1 large LINEAR relationship between 2 RV, 0 independent.
 -- but easily affected by outliers. 
 ==========================================================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-============================================================================================================================
 PCA : 
 -- problem : too many features , we want to combine some features into one by linear combination
 -- But we still want to maximize the variance of new feature,so that the one component still collects the most "uniqueness" from the data set.
@@ -73,7 +56,7 @@ Dynamic programming is used with Greedy Algorithm to break down bigger problem i
 ==========================================================================================================================
 
 Shannon Entropy Concept ( for decision tree ID3、C4.5、C5.0) :
-
+( ref : https://arxiv.org/abs/1405.2061)
 How Entropy formula relates to certainty. 
 -- Surpurise ( events of low probability ), 
 (1) Measure the EXPECTED average min. amount of information (number of bits) used to store a distribution of event, 
@@ -105,12 +88,11 @@ Short -> not player , Tall -> next
 Tall+Thin -> not player , Tall+muscular -> player 
 M/F too low IG , not considered
 
-============================================================================================================================
-
 Gini impurity (CART) , usage : similar to Entropy 
 This is the probably of a class of object randomly put into the distribution, what is the probability of misclassification 
 higher => more uncertain
-in this case : 1-p1^2 - p2^2 ......  , 
+in this case : 1-p1^2 - p2^2 ......  ,
+
 ==========================================================================================================================
 https://www.jmp.com/en_hk/statistics-knowledge-portal/t-test/two-sample-t-test.html
 
@@ -177,14 +159,17 @@ Maximum Likelihood Estimation (MLE):
 When we have a set of sample data, we want to find the best parameter of a model (e.g. mean, standard deviation ) which is best fit to this 
 observation ( sampled data). best chance (max. likehood) that fit this model.
 ==========================================================================================================================
-Bias/Variance Analysis :
-
+Errors :
+Standard Error : 
+Generalization Error : in ML, Stat.L,  GE = measure of how accurate an algorithm to predict previously unseen data. sometimes = test error
+It includes irreducible error (Noise), Bias : by models' too simple , Variance : model too complicated, captured too many noise in training data.
+ 
 ==========================================================================================================================
-Unbias Estimator :
+Unbias Estimator : 
 ==========================================================================================================================
 Linear Discriminant Analysis :
 ==========================================================================================================================
-Generative vs Discrminative Learning Model for classification  
+Generative vs Discrminative Learning Model for classification  (ref : CS229 notes2 Generative ) 
 D - example : Logistic Regression.
 G - example : Naive Bayes Classifier , Gaussian Discriminant Analysis
 suppose 2 classes y1, y2 cases, x be features
@@ -192,7 +177,11 @@ Discriminative : to classify y based on x <=> to see p(y1|x) or p(y2|x) is great
 Generative : Approach to find p(y|x), instead of finding p(y|x) directly , 
 model p(x|y) and p(y) (or p(x,y)) (given known classes, observe the distribution of its features) ,then use  p(x|y)p(y)/p(x) to find p(y|x)
 p(x) can be omitted because argmax y p(y|x) = argmax y p(x|y)p(y) = argmax y (p(x AND y))
-which means : In the modeling process , if want to find max. p(y|x) (i.e. remember we estimate to get theta by maximizing P(theta|x) in MLE )
+
+which means : In the modeling process , if want to find max. p(y|x) 
+( Note in here, the concept is very similar (in fact the same) to MLE for parameter estimation , but in fact here, we are having trying y =1/y=0 , variating the class instead of 
+parameter variation )
+
 it is the same as finding max value of (p(x AND y)) during our observation.
 
 p(y|x) means given features, the distribution of p(y) which is h(x)
@@ -218,16 +207,210 @@ Bayesian Theorem : p(x,y) = p(y|x)p(x) = p(x|y)p(y)
 Bayesian Learning : 
 p(Theta | Data ) {Posterier}
 = p(Data | Theta ){likelihood} * p(Theta) {prior} /p(Data) {Normalization}
-A view : 
+A view : (https://www.stat.auckland.ac.nz/~brewer/stats331.pdf)
 Prior : initial guess
 Likelihood : given initial guess, we have this sample data
 Then final estimation = Posterier = prior + likelihood update 
 ============================================================================================================================
-Maximum likelihood estimation(MLE), maximimize the L(theta) = p(Data|Theta) ?
+Maximum likelihood estimation(MLE), maximimize the L(theta) = p(Data|Theta)  
 
 Interpreting Likelihood function : 
-L(theta) is defined as p(X|theta), the distribution of x given the variation of parameters 
+L(theta) {or L(theta|X) }is defined as p(X|theta), the distribution of x (which is observed sample, note in classification samples 
+notice in GLM MAP is used instead of MLE ) given the variation of parameters 
+In interpreting L , we have to think in the context of parameter estimation, therefore it is the variation of theta
+it is L(theta|x) because we are working based on the observed samples x. 
+
+
 x is multivariate , and x1,... xn are independent, we have L(Theta) = p(x1|theta)*p(x2|theta).... p(xn|theata) , if every increasing, can apply
 log likelihood.
 We target to find theta that make the observed sample most likely (this theta is most probable for the observed data), i.e. to maximize p(Data|Theta)
 
+============================================================================================================================
+Gradient Descent In Practice (ref : Coursera StandfordOnline - ML)
+--GD will be fast
+
+=============================================================================================================================
+Ensembling methods : (ref :cs229 ensemble)
+good : decrease in var, better accuracy , free validation set (Out of Bag data), support missing value
+bad : increase bias, hard to interpret , more expensive ,not additive. 
+
+https://towardsdatascience.com/what-is-out-of-bag-oob-score-in-random-forest-a7fa23d710
+
+-- It can be proved that variance can be reduced by "averaging error" 
+-- by increasing n(number of models, but increase cost ), and decrease correlation of models), to de-correlate models : 
+use diff algorithm(SVM,logistic) , use diff training set, Bagging , Boosting 
+
+Bootstrap : to create multiple samples (size of full samples ) through replacement 
+-- pro : got many different sample sets. Since we assume S = P, replacement can resemble duplication in P. 
+
+Bagging ( not limited to DT )
+-- By averaging (aggregrating ) the output of models, or voting for classification, we reduce variance with on p and M. 
+-- reduced correlations term w.r.t. single sample(Bootstrap), reduced VAR by increasing number of models 
+-- using bootstrap, on avg. only 2/3 of data is used for training for each tree, remaining data (out-of-bag data) can be used for test set.
+(https://towardsdatascience.com/what-is-out-of-bag-oob-score-in-random-forest-a7fa23d710).
+OOB error estimation can rougly give the generalization error, OOB erorr gives an equivalent result to LOOCV
+-- If our test sample does not contain a feature, we can just exclude those model(tree) used that feature in split.
+
+
+Boosting : 
+-- Choose a weak learner first(prediction rate just barely > 50% ), create more stronger learners, then predict results using the averaging of learners.
+
+example : Adaboost  https://blog.paperspace.com/adaboost-optimizer/ note the alpha variation and how alpha is applied to data
+-- create stronger learners by increasing the weight of mis-classified data , then 
+-- don't know why additive model => next model dependent on preivous model ( which will increase variance ).
+"Each new weak learner is no longer independent of the previous models in the sequence, meaning that increasing
+M leads to an increase in the risk of overfitting." -- just because the data weight change ? 
+
+FASM (Forward Stagewise Additive Modeling)
+-- use lost function L (e.g. residual function y-h(x)) to train the next weak learner
+-- Adaboost is a special case of FASM
+-- note it is an abstract model, not implementation like Adaboost. 
+
+Gradient Boosting :
+
+
+
+=============================================================================================================================
+Support Vector Machine : (SVM Succinctly) 
+First assume are linearly separable. 
+Hyperplane : subspace with n-1 dimension, mathamatically : w.x+b, for simplicity , just let y = {-1,1}
+General Idea : We find a hyperplane wich min. distance of data point to the plane (geometric margin ) is greatest. (***) , for all samples
+f = y(w.x + b) , f : functional margin, w.x+b is the prediction , y is the actual sampled data, 
+if prediction is correct => f +ve , otherwise f -ve 
+w have to be normalized -> w/|w| for fair comparison
+=> f = y((w/|w|).x+(b/|w|))
+
+Function Margin vs Geomertric Margin
+GM is just scaled version of FM by |w|, GM = FM/|w|
+FM only tell whether properly classified (properly classified => +ve or missclassified -ve), GM can tell the the confidence.
+FM is introduced to provide intuition to distance maximization ( thinking this way, FM is more like geometric, but in actual computation ,
+we need GM for correctness of confidence. It is because can always scale up FM to increase the distance of data point to hyperplane, which is 
+meaningless. ) (ref : https://stackoverflow.com/questions/20058036/svm-what-is-a-functional-margin) 
+
+Simplified Derivation :
+For a particular sample i (xi,yi)
+
+Geometric Margin = min (ri) 
+where ri = functional margin / |w| = yi( (w/|w|).xi + b/|w| )
+
+Optimal separating Hyperplane (w,b) for data is the plane where GM is largest.
+
+ie
+maximize M subject to ri >= M for all i
+ (w,b) 
+It is finally a convex optimization problem : 
+minimize 1/2 * |w|^2
+
+subject to yi(w.xi)+b>=1 for all i
+
+
+
+My Reference :
+Books : 
+Introduction to Statistical Learning 
+SVM Succinctly ( step-by-step intro to SVM )
+Elements of Statistical Learning (ISL is much easier, haven't started reading this yet)
+Machine Learning, Tom Mitchell
+
+Bookmarked University UG/PG DS courses :
+
+http://cs229.stanford.edu/ -- ( the best , not pure ML : Sometimes mix with Stat. Learning / Bayesian Stat. )
+http://cs109.github.io/2015/pages/videos.html  
+http://web.stanford.edu/class/cs109/ -- first half parts are too easy, later part is good for understanding some concepts like Likelihood, Boosting.
+
+CUHK Data Mining :
+www1.se.cuhk.edu.hk/_hcheng/seg4630/index.html -- CUHK data mining courses, 
+others (ECLT 5810 E-Commerce Data Mining Technique/
+CMSC5724 Data Mining and Knowledge Discovery)
+
+Data Mining seems to ousted by ML courses these years, but I think those materials are still very worth reading.
+
+General Statistics (t-test,z-test,chi-square test,sign test,ANOVA)
+https://stattrek.com/
+https://online.stat.psu.edu/stat500/
+Khan Academy
+
+Linear Algebra / Matrix computation :
+http://www.ee.cuhk.edu.hk/~wkma/engg5781/ -- ENGG 5781 Matrix Analysis and Computations 
+( PSM, Least square , Matrix Diagonalization parts are very useful for understanding CS229 notes )
+
+
+
+Online Bootcamp-type course :
+https://www.coursera.org/learn/machine-learning -- ( Best for beginner , not maths intensive )
+https://www.udemy.com/course/python-for-data-science-and-machine-learning-bootcamp/ -- best how-to for python beginners
+https://www.kaggle.com/learn/overview -- free courses, step-by-step practical tutorial. 
+
+Python for DS : 
+https://jakevdp.github.io/PythonDataScienceHandbook/
+https://github.com/ageron/handson-ml
+https://github.com/fengdu78/
+Books : Python for Data Analysis
+
+Dashboard 
+Qlik Sense :  
+I used QS in working, My comment :
+-- the GUI is beautiful/professional and responsive, boss/businessmen would like it  
+But 
+-- association model is quite redudant in my opinion 
+-- Weak ETL / data cleaning tools , Load script has to be written very complicated to support 
+-- It is just a BI tools for data display , very weak integration with analytic tools of (ML,python) 
+
+Learning Resources : 
+-- "Mastering Qlik Sense" 
+-- Udemy QS certificate course
+-- QS official tutorial and newsgroup.
+
+R
+
+Other ML courses :
+http://www.cs.cornell.edu/courses/cs4780/2018fa/page18/
+
+=====================================================================================================================================
+How Much maths do you need ?
+-- you dont know , derivation of ML algorithms borrow many Maths from Stat/Optimization subjects. 
+-- But Some (not All) Linear Algebra, Multivariate calculus are needed, especially on model evaluation( stat. learning )
+-- just read when you need it. 
+-- I am still not sure whether Convex Optimization (studied first few chapters of Boyd , just stopped )is needed.
+
+Why Study DS/ML :
+-- I like Applied Maths as well as programming.
+-- I want to understand Modern AI that is changing the world
+-- I think this is a skills requirement for an IT guy
+
+
+Topics :  
+
+Linear Regression, 
+Logistic Regression, 
+Support Vector Machine , 
+
+K-Nearest Neighbour classifier , 
+K-Means clustering 
+
+Decision Tree:
+General (Entropy, Gini based)
+
+Ensembling : 
+With Bagging (Random Forest)
+With Boosting (AdaBoost, XGBoost)
+
+Naive Bayes Classifier, 
+Gradient Discriminant Analysis, 
+Perceptron Learning,
+Softmax Regression 
+Gaussian Discriminant Analysis
+
+EM Algorithm : 
+Bias Variance Analysis 
+
+Deep Learning : 
+Nerual Network 
+
+Reinforcement Learning :
+
+Hypothesis testing ( t-test, z-test, ANOVA, sign-test)
+
+
+
+==========================================================================================================================
