@@ -1,4 +1,6 @@
 Learning Notes for reminder and concept intuition
+purpose : 
+Get myself easier to grasp the concepts when reading university lecture notes or textbooks
 
 
 =====================================================================================================================================
