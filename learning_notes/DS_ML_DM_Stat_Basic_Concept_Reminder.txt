@@ -1,9 +1,8 @@
-Learning Notes for reminder and concept intuition
-purpose : 
-Get myself easier to grasp the concepts when reading university lecture notes or textbooks
+Learning Notes for reminder and concept intuition :
 
-
-=====================================================================================================================================
+purpose :
+Some concepts learnt from University lecture notes, textbooks , blogs and papers. 
+Get myself easier to grasp the idea when going back to those materials
 
 
 ==========================================================================================================================
@@ -36,7 +35,7 @@ sample mean = population mean
 and sample SD = PSD/sqrt(n)
 ==========================================================================================================================
 Pearson coefficient :
--- -1 to 1, 1 large LINEAR relationship between 2 RV, 0 independent.
+-- range from -1 to 1, standardized value of correlation, 1 large, LINEAR relationship between 2 RVs, 0 independent.
 -- but easily affected by outliers. 
 ==========================================================================================================================
 PCA : 
@@ -51,8 +50,8 @@ and features are projected into this axis to form the new feature.
 ==========================================================================================================================
 Greedy Algorithm : 
 -- We have no algo to find an optimal solution, brute force is too costly. 
--- We define an objective(largest reduction in entropy, which we conform to and and make the best of it. 
--- Greedy Algorithm generally not finding optimal solution, but based on the objective
+-- We define an objective(largest reduction in entropy, which we conform to and make the (most/best) of it. )
+-- Greedy Algorithm generally not finding optimal solution, but based on an objective(e.g. personal interest/Information Gain)
 Dynamic programming is used with Greedy Algorithm to break down bigger problem into smaller problem and fix it. 
 
 ==========================================================================================================================
@@ -60,7 +59,7 @@ Dynamic programming is used with Greedy Algorithm to break down bigger problem i
 Shannon Entropy Concept ( for decision tree ID3、C4.5、C5.0) :
 ( ref : https://arxiv.org/abs/1405.2061)
 How Entropy formula relates to certainty. 
--- Surpurise ( events of low probability ), 
+-- Surprise ( events of low probability ), 
 (1) Measure the EXPECTED average min. amount of information (number of bits) used to store a distribution of event, 
 to save bits, we generally use smaller number of bits to indicate higher change event (e.g. 01 ) and larger number 
 of bits to denote smaller chance event (e.g. 00100101 ). This can be calculated by Shannon Entropy formula. 
@@ -152,14 +151,48 @@ One-way Test : whether in a group of distribution , whether means are different 
 ref : https://online.stat.psu.edu/stat500/lesson/10/10.1
 
 ==========================================================================================================================
-Association Rule Mining , basket analysis : 
-confidence  :
-lift :
-support :  
+Association Rule Mining , basket analysis (Apriori algo)
+Original Paper : https://www2.cs.duke.edu/courses/spring02/cps296.1/papers/AS-VLDB94.pdf
+
+Support : Itemset occurence rate, count(I)/count(total transaction), > minsup called freq. itemset 
+Confidence :  I1 and I2 = NULL, definition : support(I1 & I2)/support(I1) = P(I2|I1)
+Lift : support(I1 & I2) / support(I2)*support(I1) 
+if Lift > 1 , I1 and I2 may be bought together 
+if lift = 1, independent 
+if Lift < 1, adverse relationship 
+
+Why lift, why conf not enough, conf may give illusive result when P(I1) is small and P(I2) is large.
+
+ 
+<- This is equivalent to saying, If I buy I1 then I will also by I2 at a confident rate.
+
+ARM is to find all rules : I1->I2, having support > minsup , confidence > minconf
+NOTE:
+(1) I1 and I2 are disjoint 
+(2) meaning: if transaction includes Itemset1 then it also has Itemset2
+
+Important properties : 
+(1) Every subset of a frequent set is frequent set , more generally if A is superset of B : A freq => B freq , B not freq, A not freq
+(2) support(A&B) < support(B) (anti-monotone property)
+
+Step I : Freq. items computation(using property (1))
+Step II : rule generation
+
+Simple Demo : 
+Step I: 
+1. Assume : A,B,C freq, generate AB,AC,BC (by property 1 ) , ABC (only if AB,AC,BC are frequent) 
+STEP II:
+2. if ABC freq, we have about 2^k possible rules. e.g. A->BC ... BC->A....
+by property of following : conf ({beer, bread} → {milk}) ≥ conf ({beer} → {milk, bread}). (by conf definition)
+Since support(beer,milk,bread)/support(beer, bread) < support(beer,milk,bread)/support(milk) 
+if abc → d  not a rule , then ab → cd ,ac → bd , a->bcd also not a rule.
+
+
+
 ==========================================================================================================================
 Maximum Likelihood Estimation (MLE):
 When we have a set of sample data, we want to find the best parameter of a model (e.g. mean, standard deviation ) which is best fit to this 
-observation ( sampled data). best chance (max. likehood) that fit this model.
+observation ( sampled data). best chance (max. likehood) that fit this model. f(X|theta)
 ==========================================================================================================================
 Errors :
 Standard Error : 
@@ -167,9 +200,11 @@ Generalization Error : in ML, Stat.L,  GE = measure of how accurate an algorithm
 It includes irreducible error (Noise), Bias : by models' too simple , Variance : model too complicated, captured too many noise in training data.
  
 ==========================================================================================================================
-Unbias Estimator : 
+Unbias Estimator : sample parameters (e.g.mean,sd) that will = the population value when sampled infinitely. 
+
 ==========================================================================================================================
 Linear Discriminant Analysis :
+
 ==========================================================================================================================
 Generative vs Discrminative Learning Model for classification  (ref : CS229 notes2 Generative ) 
 D - example : Logistic Regression.
@@ -228,15 +263,25 @@ log likelihood.
 We target to find theta that make the observed sample most likely (this theta is most probable for the observed data), i.e. to maximize p(Data|Theta)
 
 ============================================================================================================================
-Gradient Descent In Practice (ref : Coursera StandfordOnline - ML)
---GD will be fast
+Gradient Descent(details : Coursera StandfordOnline - ML, CS229 notes, e.g. finding min. of least square, 
+though it already has simple, closed form solution in matrix representation )
+-- purpose : To find all the parameters of h(theta) by finding
+the local min. of a multivariate function by numerical method, used in least-square.
+-- follow the gradient of a function , gradient is proved to the direction of steepest descent (negative direct of steepest ascent).
+
+Batch GD -- use all samples for each step of GD (ref: definition least square derivative function in GD)
+mini-batch GD -- use shuffled subset of sample for each step , lesser computing cost
+Stocastic GD -- special case of mini-batch GD , just use one sample for each step, claimed to be as good as Batch GD. (how?)
+
+alpha -- step size, large -> faster , but leads to steps oscillation around the minimum, need some detection algo. 
 
 =============================================================================================================================
-Ensembling methods : (ref :cs229 ensemble)
+Ensembling methods : (ref : proof found in cs229 ensemble)
 good : decrease in var, better accuracy , free validation set (Out of Bag data), support missing value
 bad : increase bias, hard to interpret , more expensive ,not additive. 
 
-https://towardsdatascience.com/what-is-out-of-bag-oob-score-in-random-forest-a7fa23d710
+
+
 
 -- It can be proved that variance can be reduced by "averaging error" 
 -- by increasing n(number of models, but increase cost ), and decrease correlation of models), to de-correlate models : 
@@ -248,8 +293,9 @@ Bootstrap : to create multiple samples (size of full samples ) through replaceme
 Bagging ( not limited to DT )
 -- By averaging (aggregrating ) the output of models, or voting for classification, we reduce variance with on p and M. 
 -- reduced correlations term w.r.t. single sample(Bootstrap), reduced VAR by increasing number of models 
--- using bootstrap, on avg. only 2/3 of data is used for training for each tree, remaining data (out-of-bag data) can be used for test set.
+-- using bootstrap, on avg. only about 2/3 of data is used for training for each tree, remaining data (out-of-bag data) can be used for test set.
 (https://towardsdatascience.com/what-is-out-of-bag-oob-score-in-random-forest-a7fa23d710).
+https://towardsdatascience.com/what-is-out-of-bag-oob-score-in-random-forest-a7fa23d710
 OOB error estimation can rougly give the generalization error, OOB erorr gives an equivalent result to LOOCV
 -- If our test sample does not contain a feature, we can just exclude those model(tree) used that feature in split.
 
@@ -273,7 +319,7 @@ Gradient Boosting :
 
 
 =============================================================================================================================
-Support Vector Machine : (SVM Succinctly) 
+Support Vector Machine : (SVM Succinctly,CS229 notes) 
 First assume are linearly separable. 
 Hyperplane : subspace with n-1 dimension, mathamatically : w.x+b, for simplicity , just let y = {-1,1}
 General Idea : We find a hyperplane wich min. distance of data point to the plane (geometric margin ) is greatest. (***) , for all samples
@@ -369,16 +415,6 @@ Other ML courses :
 http://www.cs.cornell.edu/courses/cs4780/2018fa/page18/
 
 =====================================================================================================================================
-How Much maths do you need ?
--- you dont know , derivation of ML algorithms borrow many Maths from Stat/Optimization subjects. 
--- But Some (not All) Linear Algebra, Multivariate calculus are needed, especially on model evaluation( stat. learning )
--- just read when you need it. 
--- I am still not sure whether Convex Optimization (studied first few chapters of Boyd , just stopped )is needed.
-
-Why Study DS/ML :
--- I like Applied Maths as well as programming.
--- I want to understand Modern AI that is changing the world
--- I think this is a skills requirement for an IT guy
 
 
 Topics :  
@@ -403,7 +439,7 @@ Perceptron Learning,
 Softmax Regression 
 Gaussian Discriminant Analysis
 
-EM Algorithm : 
+EM Algorithm 
 Bias Variance Analysis 
 
 Deep Learning : 
@@ -413,6 +449,24 @@ Reinforcement Learning :
 
 Hypothesis testing ( t-test, z-test, ANOVA, sign-test)
 
+Time Series 
+Markov Model
+
+Tensorflow 
+Convolutional Neural Networks
+NLP 
+RNN
+Tokenization
+Recommender System
+XGBoosT
+MapReduce
+Convex optimization.
+AutoML 
+Dashboard 
+
+
+
+https://www.coursera.org/professional-certificates/tensorflow-in-practice#courses
 
 
 ==========================================================================================================================
