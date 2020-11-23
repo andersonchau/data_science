@@ -38,6 +38,10 @@ Pearson coefficient :
 -- range from -1 to 1, standardized value of correlation, 1 large, LINEAR relationship between 2 RVs, 0 independent.
 -- but easily affected by outliers. 
 ==========================================================================================================================
+Correlation vs Causation 
+Correlation does not means causation , sales of ice-cream has high correlation with opening hour of aircon, but there is a
+third factor (weather, temperature)
+==========================================================================================================================
 PCA : 
 -- problem : too many features , we want to combine some features into one by linear combination
 -- But we still want to maximize the variance of new feature,so that the one component still collects the most "uniqueness" from the data set.
@@ -157,7 +161,7 @@ Original Paper : https://www2.cs.duke.edu/courses/spring02/cps296.1/papers/AS-VL
 Support : Itemset occurence rate, count(I)/count(total transaction), > minsup called freq. itemset 
 Confidence :  I1 and I2 = NULL, definition : support(I1 & I2)/support(I1) = P(I2|I1)
 Lift : support(I1 & I2) / support(I2)*support(I1) 
-if Lift > 1 , I1 and I2 may be bought together 
+if Lift > 1 , I1 and I2 , I1 and I2 are likely to be bought together. 
 if lift = 1, independent 
 if Lift < 1, adverse relationship 
 
@@ -301,7 +305,9 @@ OOB error estimation can rougly give the generalization error, OOB erorr gives a
 
 
 Boosting : 
--- Choose a weak learner first(prediction rate just barely > 50% ), create more stronger learners, then predict results using the averaging of learners.
+-- Choose a weak learner first(prediction rate just barely > 50% ), 
+create more stronger learners, 
+then predict results using the averaging of learners.
 
 example : Adaboost  https://blog.paperspace.com/adaboost-optimizer/ note the alpha variation and how alpha is applied to data
 -- create stronger learners by increasing the weight of mis-classified data , then 
@@ -365,7 +371,8 @@ Bookmarked University UG/PG DS courses :
 http://cs229.stanford.edu/ -- ( the best , not pure ML : Sometimes mix with Stat. Learning / Bayesian Stat. )
 http://cs109.github.io/2015/pages/videos.html  
 http://web.stanford.edu/class/cs109/ -- first half parts are too easy, later part is good for understanding some concepts like Likelihood, Boosting.
-
+https://ocw.mit.edu/courses/sloan-school-of-management/15-097-prediction-machine-learning-and-statistics-spring-2012/index.htm 
+-- the lecture notes are very good for stating basic concepts
 CUHK Data Mining :
 www1.se.cuhk.edu.hk/_hcheng/seg4630/index.html -- CUHK data mining courses, 
 others (ECLT 5810 E-Commerce Data Mining Technique/
