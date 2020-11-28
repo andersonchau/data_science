@@ -1,0 +1,79 @@
+Data Cleaning (with Pandas)
+
+===========================================================================================================================
+Null Value:
+
+===========================================================================================================================
+-- If there is very small proportion of N/A data, have a look into why, or just drop those row.(df.drop(<column name>,inplace=True) 
+-- If larger proportion : 
+(1) impute mean value 
+(2) impute mean value according to class ( which class? need domain knowledge)
+
+e.g.
+def impute_age(cols):
+    Age = cols[0]
+    Pclass = cols[1]
+    
+    if pd.isnull(Age):
+
+        if Pclass == 1:
+            return 37
+
+        elif Pclass == 2:
+            return 29
+
+        else:
+            return 24
+
+    else:
+        return Age
+
+df['Age'] = df[['Age','Pclass']].apply(impute_age,axis=1)
+
+
+-- If very large portion :
+just drop the column : df.drop(<column name>,axis=1,inplace=True) // axis = 0 for row, 1 for whole column, default 0
+===========================================================================================================================
+Categorical Variable Handling : 
+One-Hot Encoding 
+Sex : Male / Female 
+sex = pd.get_dummies(df['Sex'],drop_first=True) # makes it numerical 
+df.drop(['Sex'],axis=1,inplace=True) # drop those string based variable 
+df = pd.concat([sex],axis=1) # add those numerical column back. 
+
+===========================================================================================================================
+R2_Score (for Linear Regression) :
+1-RSS/TSS
+ASE : avg standard err
+MSE : mean standard error 
+RMSE : root mean standard error
+
+===========================================================================================================================
+For classification : 
+classification_report(y_test,predictions)
+True Positive : Predicted yes, infact yes
+True Negative : Predicted no, in fact no	
+False Positive : Predicted yes, in fact no (Type I error)
+False Negative : Predicted no, in fact yes (Type II error)
+
+Note in logistic regression , h's output is p , not 1/0, we just set the decision boundary as p>0.5 by default.
+
+
+Accuracy : (TP+TN)/Total Trials
+Precision : TP/(TP+FP) = true positive / number of predicted positive 
+recall : TP/(TP+FN) = true positive / no. of actual positive
+F1-score : 2/(1/P+1/R) = 2(PR)/(P+R)
+support  :
+
+In security recognition, we want to open door (predict 1) only when very confident. 
+We increase h boundary to predict 1 => higher precision , lower recall (P/Rinverse relationship)
+In cancer prediction case, we decrease h's boundary, because very bad when reported no cancer when in fact have cancer. 
+=> lower precision, higher recall.
+
+The Metrics to find the "best" P/R combination : find the algo (if we have > 1 algos )with highest F1 score (with beta = 1, P/R same importance )
+Can adjust beta for F1 score to tune the importance of P or R. 
+beta = 0 => precision 
+beta = +inf => recall 
+===========================================================================================================================
+
+
