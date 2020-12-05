@@ -37,9 +37,21 @@ just drop the column : df.drop(<column name>,axis=1,inplace=True) // axis = 0 fo
 Categorical Variable Handling : 
 One-Hot Encoding 
 Sex : Male / Female 
-sex = pd.get_dummies(df['Sex'],drop_first=True) # makes it numerical 
+sex = pd.get_dummies(df['Sex'],drop_first=True) # makes it numerical , drop_first => avoid duplicate 
 df.drop(['Sex'],axis=1,inplace=True) # drop those string based variable 
 df = pd.concat([sex],axis=1) # add those numerical column back. 
+===========================================================================================================================
+Feature Scaling : Mean Normalization : 
+x = (xi-mean)/(max-min)
+or 
+x = (xi-mean)/(standard deviation) -- called standardization, lesser affected by outlier
+or just normalize :
+x = (x-min)/(max-min)
+When to use ?
+K-Means,KNN -- distance based algo
+PCA -- need variance computation 
+NN
+GD -- converge faster
 
 ===========================================================================================================================
 R2_Score (for Linear Regression) :
@@ -63,7 +75,7 @@ Accuracy : (TP+TN)/Total Trials
 Precision : TP/(TP+FP) = true positive / number of predicted positive 
 recall : TP/(TP+FN) = true positive / no. of actual positive
 F1-score : 2/(1/P+1/R) = 2(PR)/(P+R)
-support  :
+support  : occurrance
 
 In security recognition, we want to open door (predict 1) only when very confident. 
 We increase h boundary to predict 1 => higher precision , lower recall (P/Rinverse relationship)
@@ -74,6 +86,10 @@ The Metrics to find the "best" P/R combination : find the algo (if we have > 1 a
 Can adjust beta for F1 score to tune the importance of P or R. 
 beta = 0 => precision 
 beta = +inf => recall 
+
+in python classification report 
+precision + 1 means when the model say 1, % the model is correct.
+recall + 1 means of all 1s , the % which the model can predict 1
 ===========================================================================================================================
 
 
