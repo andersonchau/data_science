@@ -357,6 +357,8 @@ minimize 1/2 * |w|^2
 
 subject to yi(w.xi)+b>=1 for all i
 
+Main Steps :
+
 
 
 My Reference :
