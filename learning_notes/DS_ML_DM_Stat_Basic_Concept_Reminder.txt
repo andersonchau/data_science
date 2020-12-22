@@ -479,3 +479,7 @@ https://www.coursera.org/professional-certificates/tensorflow-in-practice#course
 
 
 ==========================================================================================================================
+Data leakage : 
+target leakage , some features are in fact 'result' of target, it happens after the target=> do good in train and test but poor in actual 
+train-test data contamination : data cleaning on CV or test data ( which is wrong ), only do cleanining on train data
+==========================================================================================================================
