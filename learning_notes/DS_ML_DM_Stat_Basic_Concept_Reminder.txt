@@ -9,8 +9,12 @@ Get myself easier to grasp the idea when going back to those materials
 ML/DM difference :
 -- use same technique ( SVM, LR, Logistic R ... )
 ML - we program something (predict a model for future preduction) using data
-DM - we use data to build model to create knowledge ( knowledge discovery)
+DM - we use data to build model to create knowledge ( knowledge discovery), to discover pattern from data
+Both can be used for prediction. 
 ==========================================================================================================================
+-- ML, Stat. Learning Difference :
+Stat. studies on stat. inference. 
+
 ========================================================================================================================
 Statistics -- how to collect data, interpret data, reach conclusion about data. 
 Descriptive Stat -- mean/var/skewness to discribe data, visualization 
